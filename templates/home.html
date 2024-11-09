@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServeHub - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        header {
+            background: #35424a;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #f4f4f4;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #35424a;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 2px solid #35424a;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e8491d;
+            color: #ffffff;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #c73717;
+        }
+
+        .featured-services {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .service {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            flex: 1 1 30%;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .service:hover {
+            transform: translateY(-5px);
+        }
+
+        .service h4 {
+            margin: 0 0 10px;
+            color: #35424a;
+        }
+
+        .about-section {
+            margin-top: 50px;
+        }
+
+        .about-cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .about-card {
+            background: #fff;
+            border-radius: 10px;
+            width: 250px;
+            height: 200px;
+            perspective: 1000px;
+            margin: 20px;
+        }
+
+        .about-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .about-card:hover .about-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .about-card-front,
+        .about-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-card-front {
+            background-color: #35424a;
+            color: white;
+        }
+
+        .about-card-back {
+            background-color: #e8491d;
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #35424a;
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to ServeHub</h1>
+        <button onclick="window.location.href='/cancel_book.html'" style="position: absolute; top: 10px; left: 10px; padding: 10px 20px;">Cancel Booking</button>
+        <div style="position: absolute; top: 10px; right: 10px;">
+            User ID: {{ g.user_id }}
+        </div>
+        <!-- <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                <li><a href="services.html">Services</a></li>
+            </ul>
+        </nav> -->
+    </header>
+    
+    <main>
+        <h2>Select your Service</h2>
+
+        <section class="featured-services">
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=1'">
+                <h4>Electrician</h4>
+                <p>Get electrical appliances fixed.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=2'">
+                <h4>Plumbing</h4>
+                <p>Fix leaks, pipes, and more.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=3'">
+                <h4>Carpenter</h4>
+                <p>Expert woodwork for repairs, custom furniture, and renovations.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=4'">
+                <h4>Pest Control</h4>
+                <p>Effective solutions to eliminate pests and protect your home.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=5'">
+                <h4>Kitchen Repairs</h4>
+                <p>Quick and efficient repairs to keep your kitchen running smoothly.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=6'">
+                <h4>Painting</h4>
+                <p>Transform your home with professional painting and finishing services.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=7'">
+                <h4>Beauty Salon</h4>
+                <p>Indulge yourself with a luxurious beauty treatment in the comfort of home.</p>
+            </div>
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=8'">
+                <h4>Deep Cleaning</h4>
+                <p>Comprehensive cleaning for a refreshingly pristine space.</p>
+            </div>
+            
+            <div class="service" onclick="window.location.href='/stores_db.html?service_type_id=9'">
+                <h4>Pet Grooming</h4>
+                <p>Keep your furry friend happy and looking great with top-notch grooming.</p>
+            </div>
+            
+            
+
+        </section>
+
+        <section class="about-section">
+            <h2>About ServeHub</h2>
+            <div class="about-cards">
+                <div class="about-card">
+                    <div class="about-card-inner">
+                        <div class="about-card-front">
+                            <h4>What We Do</h4>
+                            <p>Your local services, just a tap away!</p>
+                        </div>
+                        <div class="about-card-back">
+                            <p>We connect you with reliable service providers in your area, making home maintenance easier than ever!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <div class="about-card-inner">
+                        <div class="about-card-front">
+                            <h4>Why Choose Us</h4>
+                            <p>Quality services at your fingertips!</p>
+                        </div>
+                        <div class="about-card-back">
+                            <p>Our platform ensures quality, convenience, and user satisfaction with every booking!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <div class="about-card-inner">
+                        <div class="about-card-front">
+                            <h4>Your Trust, Our Priority</h4>
+                            <p>Service providers you can trust!</p>
+                        </div>
+                        <div class="about-card-back">
+                            <p>We vet our service providers to ensure you get the best quality services possible!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ServeHub. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function searchServices() {
+            const location = document.getElementById('location').value;
+            // Implement your search logic here
+            alert('Searching for services in: ' + location);
+        }
+    </script>
+</body>
+</html>

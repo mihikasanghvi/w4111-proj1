@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Booking Page</h1>
+        <button class="cancel-button" onclick="window.location.href='/store_services.html?store_id={{ store_id }}'">Back to Services</button>
+    </header>
+    
+    <main class="container">
+        <h2>Confirm Your Booking</h2>
+
+        <!-- Booking Form -->
+        <form action="/booking_confirm.html" method="POST">
+            <!-- Hidden Inputs -->
+            <input type="hidden" name="user_id" value="{{ g.user_id }}">
+            <input type="hidden" name="store_id" value="{{ store_id }}">
+            <input type="hidden" name="store_name" value="{{ store_name }}">
+            <input type="hidden" name="service_name" value="{{ service_name }}">
+            <input type="hidden" name="price" value="{{ price }}">
+            <!-- If you have service_name, include it -->
+            <!-- <input type="hidden" name="service_name" value="{{ service_name }}"> -->
+
+            <div class="info-section">
+                <p><strong>User ID:</strong> {{ g.user_id }}</p>
+                <p><strong>Store ID:</strong> {{ store_id }}</p>
+                <p><strong>Store Name:</strong> {{ store_name }}</p>
+                <p><strong>Service Name:</strong> {{ service_name }}</p>
+                <p><strong>Price:</strong> ${{ price }}</p>
+            </div>
+
+            <div class="input-group">
+                <label for="service-date">Choose a Service Date:</label>
+                <input type="date" id="service-date" name="service_date" required>
+            </div>
+
+            <div class="input-group">
+                <label for="service-time">Choose a Service Time:</label>
+                <select id="service-time" name="service_time" required>
+                    <option value="" disabled selected>Select a time</option>
+                    <option value="09:00">9:00 AM</option>
+                    <option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option>
+                    <option value="12:00">12:00 PM</option>
+                    <option value="13:00">1:00 PM</option>
+                    <option value="14:00">2:00 PM</option>
+                    <option value="15:00">3:00 PM</option>
+                    <option value="16:00">4:00 PM</option>
+                </select>
+            </div>
+
+            <!-- Confirm Booking Button -->
+            <button type="submit" class="confirm-button">Confirm Booking</button>
+        </form>
+    </main>
+    <script>
+        // Create a new date object
+        const today = new Date();
+        // Set the date to tomorrow
+        today.setDate(today.getDate() + 1);
+        // Format the date to YYYY-MM-DD
+        const tomorrow = today.toISOString().split('T')[0];
+        // Set the min attribute of the input element to tomorrow's date
+        document.getElementById('service-date').setAttribute('min', tomorrow);
+    </script>
+</body>
+</html>

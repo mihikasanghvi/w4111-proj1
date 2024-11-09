@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Services for Store ID: {{ store_id }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Store Services</h1>
+        <div style="position: absolute; top: 10px; right: 10px;">
+            User ID: {{ g.user_id }}
+        </div>
+        <button onclick="window.location.href='/stores_db.html'">Back to Stores</button>
+    </header>
+    
+    <main>
+        <h2>Services Available at Store ID: {{ store_id }}</h2>
+
+        <section class="services-list">
+            {% if services %}
+                {% for service in services %}
+                    <div class="service-item">
+                        <h3>{{ service.service_name }}</h3>
+                        <p>Price: ${{ service.price }}</p>
+                        <button onclick="bookService('{{ service.service_name }}')">Book Service</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No services found for this store.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; ServeHub All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function bookService(serviceName) {
+            const encodedServiceName = encodeURIComponent(serviceName);
+            window.location.href = `booking1.html?store_id={{ store_id }}&service_name=${encodedServiceName}`;
+        // window.location.href = 'booking1.html?store_id={{ store_id }}';
+        }
+    </script>
+</body>
+</html>

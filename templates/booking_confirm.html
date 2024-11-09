@@ -1,0 +1,25 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Booking Confirmation</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+<body>
+    <header>
+        <h1>Booking Confirmation</h1>
+    </header>
+    
+    <main class="container">
+        <div class="confirmation-details">
+            <h2>Your Booking is Confirmed!</h2>
+            <p><strong>Booking ID:</strong> {{ booking_id }}</p>
+            <p><strong>User ID:</strong> {{ user_id }}</p>
+        <button class="home-button" onclick="window.location.href='/home'">Go to Home</button>
+    </main>
+
+</body>
+</html>

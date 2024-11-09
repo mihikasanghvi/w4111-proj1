@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grooming Services</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>ServeHub</h1>
+        <div style="position: absolute; top: 10px; right: 10px;">
+            User ID: {{ g.user_id }}
+        </div>
+    </header>
+    
+    <main>
+        <h2>Available Stores</h2>
+        <input type="text" placeholder="Enter your location (Pin Code)" id="pincode">
+        <button onclick="searchServices()">Search Services</button>
+
+        <!-- Container for the dynamic cards -->
+        <section class="service-cards">
+            {% for store in stores %}
+                <div class="card" onclick="window.location.href='/store_services.html?store_id={{ store.store_id }}'">
+                    <h4>{{ store.store_name }}</h4>
+                    <p>Store ID: {{ store.store_id }}</p>
+                    <p>Service Type: {{ store.service_type }}</p>
+                    <p>Pin Code: {{ store.pin_code }}</p>
+                </div>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ServeHub. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        async function fetchStores(pin_code, service_type_id) {
+            try {
+                const response = await fetch(`/stores_db.html?pincode=${pin_code}&service_type_id=${service_type_id}`, {
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                });
+                const stores = await response.json();
+                const serviceCardsContainer = document.querySelector('.service-cards');
+                serviceCardsContainer.innerHTML = '';  // Clear previous content
+                
+                stores.forEach(store => {
+                    const card = document.createElement('div');
+                    card.classList.add('card');
+                    card.onclick = () => window.location.href = `/store_services.html?store_id=${store.store_id}`;
+                    
+                    card.innerHTML = `
+                        <h4>${store.store_name}</h4>
+                        <p>Store ID: ${store.store_id}</p>
+                        <p>Service Type: ${store.service_type}</p>
+                        <p>Pin Code: ${store.pin_code}</p>
+                    `;
+                    
+                    serviceCardsContainer.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error fetching stores:", error);
+            }
+        }
+
+        function searchServices() {
+            const pincode = document.getElementById('pincode').value;
+            const serviceTypeId = new URLSearchParams(window.location.search).get('service_type_id');
+            fetchStores(pincode, serviceTypeId);
+        }
+    </script>
+</body>
+</html>

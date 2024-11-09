@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>ServeHub</h1>
+    </header>
+
+    <div class="container">
+        <h2>Cancel Booking</h2>
+        <p><strong>User ID:</strong> <span id="userIdDisplay">{{ user_id }}</span></p>
+        <form method="POST">
+            <div class="input-group">
+                <label for="bookingId">Booking ID:</label>
+                <input type="text" id="booking_id" name="booking_id" placeholder="Enter your booking ID">
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+            <button type="submit">Cancel Booking</button>
+            
+        </form>
+        <button class="home-button" onclick="window.location.href='/home'" >Go to Home</button>
+    </div>
+</body>
+</html>
